@@ -111,6 +111,9 @@ public class Administrador {
 							int valorDescuento = Integer.parseInt(lineaActual[1]);
 							descuentoTotal += valorDescuento;
 						} else {
+							if(lectura.contains("Cliente")){
+								
+							} else {
 							String[] lineaActual = lectura.split("_");
 							String nomServicio = lineaActual[0];
 							int costoServicio = Integer.parseInt(lineaActual[1]);
@@ -119,7 +122,7 @@ public class Administrador {
 							cantidadServicios++;
 							comisionTotal += comisionServicio;
 							gananciasTotal += gananciaServicio;
-							producidoSinDescuento += costoServicio;
+							producidoSinDescuento += costoServicio;}
 						}
 						lectura = in.readLine();
 					}
@@ -205,7 +208,7 @@ public class Administrador {
 							String[] lineaActual = lectura.replaceAll("-", "").split("_");
 							int total = Integer.parseInt(lineaActual[1]);
 							producido += total;
-						} else if(lectura.contains("Descuento")) {
+						} else if(lectura.contains("Descuento") || lectura.contains("Cliente")) {
 							
 						} else {
 							String[] lineaActual = lectura.split("_");

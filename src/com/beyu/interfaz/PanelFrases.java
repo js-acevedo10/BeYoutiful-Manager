@@ -51,12 +51,10 @@ public class PanelFrases extends JPanel {
 			File f = new File("./data/frases.btf");
 			int c = 0;
 			int x = (int) (Math.random() * 50);
-			System.out.println(x);
 			String lectura = in.readLine();
 			while(lectura != null && c < x-1) {
 				lectura = in.readLine();
 				c++;
-				System.out.println(c);
 			}
 			lectura = in.readLine();
 			btnBtntexto.setText("<html><p align=\"center\">" + lectura + "</p></html>");

@@ -23,7 +23,6 @@ public class InterfazPrincipal extends JFrame {
 	private JPanel panelActual;
 	private Manager manager;
 	public PanelAdmin panelAdmin;
-
 	/**
 	 * Launch the application.
 	 */

@@ -15,7 +15,7 @@ public class RegistroFacturas {
 	public RegistroFacturas(CreadorRecibos reciboEfectuado, Usuario usuarioEncargado, String nombreCliente) {
 		this.reciboEfectuado = reciboEfectuado;
 		this.usuarioEncargado = usuarioEncargado;
-		this.nombreCliente = nombreCliente;
+		this.nombreCliente = nombreCliente.substring(0,1).toUpperCase() + nombreCliente.substring(1);
 	}
 	
 	public void exportarRecibo() {

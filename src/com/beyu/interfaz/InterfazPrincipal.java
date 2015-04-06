@@ -39,7 +39,6 @@ public class InterfazPrincipal extends JFrame {
 			}
 		});
 	}
-
 	/**
 	 * Create the frame.
 	 */

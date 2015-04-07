@@ -126,7 +126,7 @@ public class PanelTool extends JPanel {
 		toolsManager = new ToolsManager(principal.getUsuarios(), this);
 	}
 
-	public void actualizarListas(ArrayList<Servicio> servicios, int i, Usuario user) {
+	public void actualizarListas(ArrayList<Servicio> servicios, int i, Usuario user, int tot) {
 		switch (i) {
 		case 1:
 			lblUser1.setEnabled(true);
@@ -142,6 +142,8 @@ public class PanelTool extends JPanel {
 
 				modelo.addElement(muestra);
 			}
+			modelo.addElement(" ");
+			modelo.addElement("---------------------------------Total $" + tot + "---------------------------------");
 			listUser1.setEnabled(true);
 			listUser1.setModel(modelo);
 			break;
@@ -160,6 +162,8 @@ public class PanelTool extends JPanel {
 				modelo2.addElement(muestra);
 
 			}
+			modelo2.addElement(" ");
+			modelo2.addElement("---------------------------------Total $" + tot + "---------------------------------");
 			listUser2.setModel(modelo2);
 			break;
 		case 3:
@@ -177,6 +181,8 @@ public class PanelTool extends JPanel {
 				modelo3.addElement(muestra);
 
 			}
+			modelo3.addElement(" ");
+			modelo3.addElement("---------------------------------Total $" + tot + "---------------------------------");
 			listUser3.setModel(modelo3);
 			break;
 		case 4:
@@ -194,6 +200,8 @@ public class PanelTool extends JPanel {
 				modelo4.addElement(muestra);
 
 			}
+			modelo4.addElement("");
+			modelo4.addElement("---------------------------------Total $" + tot + "---------------------------------");
 			listUser4.setModel(modelo4);
 			break;
 

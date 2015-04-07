@@ -41,9 +41,10 @@ public class ToolsManager {
 		anioActual = dateActual.getYear() + 1900;
 
 		fechaDisplay = diaActual + "-" + mesActual + "-" + anioActual;
+		int tot = 0;
 
 		for(Usuario usuario: usuarios) {
-
+			tot = 0;
 			ArrayList servicios = new ArrayList();
 
 			String carpeta = usuario.darNombre().replace(" ", "");
@@ -71,6 +72,7 @@ public class ToolsManager {
 
 							temp = new Servicio(nomServicio, costoServicio, usuario, cliente);
 							servicios.add(temp);
+							tot += costoServicio;
 						}
 						lectura = in.readLine();
 					}
@@ -80,14 +82,14 @@ public class ToolsManager {
 				}
 			}
 
-			llenarInformacionEnBotones(servicios, usuario);
+			llenarInformacionEnBotones(servicios, usuario, tot);
 
 		}
 
 	}
 
-	private void llenarInformacionEnBotones(ArrayList<Servicio> servicios, Usuario user) {
+	private void llenarInformacionEnBotones(ArrayList<Servicio> servicios, Usuario user, int tot) {
 		i++;
-		panelTools.actualizarListas(servicios, i, user);
+		panelTools.actualizarListas(servicios, i, user, tot);
 	}
 }

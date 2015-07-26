@@ -50,7 +50,7 @@ public class PanelFrases extends JPanel {
 			BufferedReader in = new BufferedReader(new FileReader("./data/frases.btf"));
 			File f = new File("./data/frases.btf");
 			int c = 0;
-			int x = (int) (Math.random() * 50);
+			int x = (int) (Math.random() * 70);
 			String lectura = in.readLine();
 			while(lectura != null && c < x-1) {
 				lectura = in.readLine();

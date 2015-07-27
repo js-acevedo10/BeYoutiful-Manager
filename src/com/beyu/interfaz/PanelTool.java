@@ -35,6 +35,8 @@ public class PanelTool extends JPanel {
 	public JLabel lblUser2;
 	public JLabel lblUser3;
 	public JLabel lblUser4;
+	public JButton btnLlegada;
+	public String[] ops = {"Marisol", "Stefany", "Raul"};
 
 	/**
 	 * Create the panel.
@@ -57,26 +59,23 @@ public class PanelTool extends JPanel {
 			}
 		});
 
-		JButton btnAddUser = new JButton("Anadir Usuario");
-		btnAddUser.setPreferredSize(new Dimension(0, 100));
-		btnAddUser.addActionListener(new ActionListener() {
+		btnLlegada = new JButton("Registrar Llegada");
+		btnLlegada.setPreferredSize(new Dimension(0, 100));
+		btnLlegada.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				String nombre = JOptionPane.showInputDialog("Ingresa el nombre del nuevo usuario.");
-				String apellido = JOptionPane.showInputDialog("Ingresa el apellido del nuevo usuario.");
-				String correo = JOptionPane.showInputDialog("Ingresa el correo del nuevo usuario");
-
-				if(nombre == null || nombre.equals("") || apellido == null || apellido.equals("") ||correo == null || !correo.contains("@")) {
-					JOptionPane.showMessageDialog(principal, "Error en los datos.");
-				} else {
-					databaseManager.addUserToDatabase(nombre, apellido, correo);
+				int user = JOptionPane.showOptionDialog(null, "Elegir el empleado que ha llegado:", "Registrar Llegada", JOptionPane.OK_CANCEL_OPTION, 0, null, ops, ops[0]);
+				String usuario = "";
+				if(user >= 0) {
+					usuario = ops[user];
+					
 				}
 			}
 		});
 
 		panelBotonesSur.add(btnCancelar);
-		panelBotonesSur.add(btnAddUser);
+		panelBotonesSur.add(btnLlegada);
 		add(panelBotonesSur, BorderLayout.SOUTH);
 
 		JPanel panelNombres = new JPanel();
@@ -143,7 +142,7 @@ public class PanelTool extends JPanel {
 				modelo.addElement(muestra);
 			}
 			modelo.addElement(" ");
-			modelo.addElement("---------------------------------Total $" + tot + "---------------------------------");
+			modelo.addElement("--------------------------------Total $" + tot + "--------------------------------");
 			listUser1.setEnabled(true);
 			listUser1.setModel(modelo);
 			break;
@@ -163,7 +162,7 @@ public class PanelTool extends JPanel {
 
 			}
 			modelo2.addElement(" ");
-			modelo2.addElement("---------------------------------Total $" + tot + "---------------------------------");
+			modelo2.addElement("--------------------------------Total $" + tot + "--------------------------------");
 			listUser2.setModel(modelo2);
 			break;
 		case 3:
@@ -182,7 +181,7 @@ public class PanelTool extends JPanel {
 
 			}
 			modelo3.addElement(" ");
-			modelo3.addElement("---------------------------------Total $" + tot + "---------------------------------");
+			modelo3.addElement("--------------------------------Total $" + tot + "--------------------------------");
 			listUser3.setModel(modelo3);
 			break;
 		case 4:
@@ -200,8 +199,8 @@ public class PanelTool extends JPanel {
 				modelo4.addElement(muestra);
 
 			}
-			modelo4.addElement("");
-			modelo4.addElement("---------------------------------Total $" + tot + "---------------------------------");
+			modelo4.addElement(" ");
+			modelo4.addElement("--------------------------------Total $" + tot + "--------------------------------");
 			listUser4.setModel(modelo4);
 			break;
 

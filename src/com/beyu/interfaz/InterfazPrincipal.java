@@ -84,7 +84,8 @@ public class InterfazPrincipal extends JFrame {
 	}
 
 	public void restart() {
-		changePanel(panelBienvenida);
+		panelBienvenida = null;
+		changePanel(panelBienvenida = new PanelBienvenida(this));
 	}
 
 	public Usuario getUser(String text) {

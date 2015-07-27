@@ -6,7 +6,18 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JButton;
@@ -62,14 +73,83 @@ public class PanelTool extends JPanel {
 		btnLlegada = new JButton("Registrar Llegada");
 		btnLlegada.setPreferredSize(new Dimension(0, 100));
 		btnLlegada.addActionListener(new ActionListener() {
-
+			
+			public void recrearArchivo(String usuario, String fecha) throws Exception {
+				String path = "./data/turnosManager.btf";
+				File archivo = new File(path);
+				PrintWriter fos = new PrintWriter(archivo);
+				fos.print("");
+				fos.close();
+				System.out.println("Archivo borrado");
+				
+				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(archivo, true)));
+				out.println("Fecha:" + fecha);
+				out.println("3&Diana");
+				out.close();
+				escribirLlegada(usuario, 0);
+			}
+			
+			public void escribirLlegada(String usuario, int puesto) throws Exception {
+				String path = "./data/turnosManager.btf";
+				File archivo = new File(path);
+				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(archivo, true)));
+				out.println(puesto+"&"+usuario);
+				out.close();
+			}
+			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				String pathname = "./data/turnosManager.btf";
+				File archivoActual = new File(pathname);
 				int user = JOptionPane.showOptionDialog(null, "Elegir el empleado que ha llegado:", "Registrar Llegada", JOptionPane.OK_CANCEL_OPTION, 0, null, ops, ops[0]);
 				String usuario = "";
+				Date fechaHoy = new Date();
+				String diaHoy = fechaHoy.getDate()+"";
+				int mesHoyInt = fechaHoy.getMonth()+1;
+				String mesHoy = mesHoyInt+"";
+				int anioHoyInt = fechaHoy.getYear() + 1900;
+				String anioHoy = anioHoyInt+"";
+				String fecha=diaHoy+"/"+mesHoy+"/"+anioHoy;
 				if(user >= 0) {
 					usuario = ops[user];
-					
+					pathname = "./data/turnosManager.btf";
+					archivoActual = new File(pathname);
+					int llegadaNum = 0;
+					if(!archivoActual.exists())
+						archivoActual.mkdir();
+					try {
+						BufferedReader in = new BufferedReader(new FileReader(archivoActual));
+						String lectura = in.readLine();
+						while(lectura != null) {
+							if(lectura.contains("Fecha:")) {
+								String fechaActual = lectura.split(":")[1];
+								String dia = fechaActual.split("/")[0];
+								String mes = fechaActual.split("/")[1];
+								String anio = fechaActual.split("/")[2];
+																
+								if(dia.equals(diaHoy) && mes.equals(mesHoy) && anio.equals(anioHoy)) {
+									System.out.println("nada");
+								} else {
+									recrearArchivo(usuario, fecha);
+									return;
+								}
+							} else {
+								if(lectura.equals("3&Diana")) {
+								} else {
+									System.out.println("aca");
+									String puesto = lectura.split("&")[0];
+									int num = Integer.parseInt(puesto);
+									if(num >= llegadaNum) {
+										llegadaNum = num+1;
+									}
+								}
+							}
+							lectura = in.readLine();
+						}
+						escribirLlegada(usuario, llegadaNum);
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
 				}
 			}
 		});

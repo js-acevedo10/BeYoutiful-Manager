@@ -5,6 +5,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 
@@ -33,6 +34,10 @@ public class PanelBienvenida extends JPanel {
 	private JButton btnUser_3;
 	private JButton btnAdmin;
 	private JButton btnTools;
+	private JButton btnTurno1;
+	private JButton btnTurno2;
+	private JButton btnTurno3;
+	private JButton btnTurno4;
 
 	/**
 	 * Create the panel.
@@ -106,9 +111,12 @@ public class PanelBienvenida extends JPanel {
 			}
 		});
 		btnAdmin.setFont(new Font("Helvetica Neue", Font.PLAIN, 25));
-		add(btnAdmin);
 		
-		btnTools = new JButton("Tools");
+		JPanel panelTools = new JPanel();
+		panelTools.setLayout(new BorderLayout());
+		panelTools.setBackground(new Color(0,0,0,0));
+		
+		btnTools = new JButton("Resumen Diario");
 		btnTools.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				PanelTool panelTools = new PanelTool(ventana);
@@ -116,9 +124,33 @@ public class PanelBienvenida extends JPanel {
 			}
 		});
 		btnTools.setFont(new Font("Helvetica Neue", Font.PLAIN, 25));
-		add(btnTools);
+		panelTools.add(btnTools, BorderLayout.SOUTH);
+		
+		JPanel panelTurno = new JPanel();
+		panelTurno.setLayout(new GridLayout(2,2));
+		panelTurno.setBackground(new Color(0,0,0,0));
+		
+		btnTurno1 = new JButton("<html><p style=\"font-size:16px;\">Turno 1</p></html>");
+		btnTurno2 = new JButton("<html><p style=\"font-size:16px;\">Turno 2</p></html>");
+		btnTurno3 = new JButton("<html><p style=\"font-size:16px;\">Turno 3</p></html>");
+		btnTurno4 = new JButton("<html><p style=\"font-size:16px;\">Turno 4</p></html>");
+		
+		panelTurno.add(btnTurno1);
+		panelTurno.add(btnTurno2);
+		panelTurno.add(btnTurno3);
+		panelTurno.add(btnTurno4);
+		
+		panelTools.add(panelTurno, BorderLayout.CENTER);
+		
+		add(panelTools);
+		add(btnAdmin);
 		
 		renameButtons(usuarios);
+		refreshTurnos();
+	}
+	
+	public void refreshTurnos() {
+		
 	}
 	
 	public void renameButtons(ArrayList<Usuario> users) {

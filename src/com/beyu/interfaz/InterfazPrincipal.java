@@ -84,7 +84,7 @@ public class InterfazPrincipal extends JFrame {
 	}
 
 	public void restart() {
-		panelBienvenida = null;
+//		panelBienvenida = null;
 		changePanel(panelBienvenida = new PanelBienvenida(this));
 	}
 

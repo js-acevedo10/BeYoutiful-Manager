@@ -80,7 +80,6 @@ public class PanelTool extends JPanel {
 				PrintWriter fos = new PrintWriter(archivo);
 				fos.print("");
 				fos.close();
-				System.out.println("Archivo borrado");
 				
 				PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(archivo, true)));
 				out.println("Fecha:" + fecha);
@@ -99,8 +98,41 @@ public class PanelTool extends JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				try {
 				String pathname = "./data/turnosManager.btf";
 				File archivoActual = new File(pathname);
+				BufferedReader ini = new BufferedReader(new FileReader(archivoActual));
+				String lec = ini.readLine();
+				if(lec.contains("Fecha:")) {
+					String date = lec.split(":")[1];
+					Date fechaHoy = new Date();
+					String diaHoy = fechaHoy.getDate()+"";
+					int mesHoyInt = fechaHoy.getMonth()+1;
+					String mesHoy = mesHoyInt+"";
+					int anioHoyInt = fechaHoy.getYear() + 1900;
+					String anioHoy = anioHoyInt+"";
+					String fecha=diaHoy+"/"+mesHoy+"/"+anioHoy;
+					if(date.equalsIgnoreCase(fecha)) {
+						String x = "";
+						String a = ini.readLine();
+						while(a != null) {
+							x+=a;
+							a = ini.readLine();
+						}
+						ini.close();
+						if(x.contains("Marisol") && x.contains("Stefany") && x.contains("Raul")) {
+							int paso = JOptionPane.showConfirmDialog(null, "El registro de llegadas esta completo, desea reiniciarlo?");
+							if(paso == JOptionPane.YES_OPTION) {
+								String path = "./data/turnosManager.btf";
+								File archivo = new File(path);
+								PrintWriter fos = new PrintWriter(archivo);
+								fos.print("Fecha:99/99/99");
+								fos.close();
+								JOptionPane.showMessageDialog(null, "Debe registrar todas las llegadas del dia de hoy nuevamente.");
+							}
+						}
+					}
+				}
 				int user = JOptionPane.showOptionDialog(null, "Elegir el empleado que ha llegado:", "Registrar Llegada", JOptionPane.OK_CANCEL_OPTION, 0, null, ops, ops[0]);
 				String usuario = "";
 				Date fechaHoy = new Date();
@@ -110,6 +142,7 @@ public class PanelTool extends JPanel {
 				int anioHoyInt = fechaHoy.getYear() + 1900;
 				String anioHoy = anioHoyInt+"";
 				String fecha=diaHoy+"/"+mesHoy+"/"+anioHoy;
+				
 				if(user >= 0) {
 					usuario = ops[user];
 					pathname = "./data/turnosManager.btf";
@@ -117,7 +150,7 @@ public class PanelTool extends JPanel {
 					int llegadaNum = 0;
 					if(!archivoActual.exists())
 						archivoActual.mkdir();
-					try {
+					
 						BufferedReader in = new BufferedReader(new FileReader(archivoActual));
 						String lectura = in.readLine();
 						while(lectura != null) {
@@ -128,15 +161,16 @@ public class PanelTool extends JPanel {
 								String anio = fechaActual.split("/")[2];
 																
 								if(dia.equals(diaHoy) && mes.equals(mesHoy) && anio.equals(anioHoy)) {
-									System.out.println("nada");
 								} else {
 									recrearArchivo(usuario, fecha);
 									return;
 								}
+							} else if(lectura.contains(usuario)) {
+									JOptionPane.showMessageDialog(null, "El usuario " + usuario + " ya está registrado el día de hoy.");
+									return;
 							} else {
 								if(lectura.equals("3&Diana")) {
 								} else {
-									System.out.println("aca");
 									String puesto = lectura.split("&")[0];
 									int num = Integer.parseInt(puesto);
 									if(num >= llegadaNum) {
@@ -147,12 +181,11 @@ public class PanelTool extends JPanel {
 							lectura = in.readLine();
 						}
 						escribirLlegada(usuario, llegadaNum);
-					} catch (Exception e) {
+					}} catch (Exception e) {
 						e.printStackTrace();
 					}
 				}
-			}
-		});
+			});
 
 		panelBotonesSur.add(btnCancelar);
 		panelBotonesSur.add(btnLlegada);

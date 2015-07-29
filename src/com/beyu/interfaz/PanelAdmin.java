@@ -617,7 +617,7 @@ public class PanelAdmin extends JPanel {
 			txtUser3Ganancia.setText("$" + ganancias);
 			sumarTotal();
 			break;
-		case 4:
+		case 3:
 			btnUser4Name.setText(nombre);
 			txtUser4Servicios.setText(cantidadServicios + "");
 			txtUser4Producido.setText("$" + producido);
